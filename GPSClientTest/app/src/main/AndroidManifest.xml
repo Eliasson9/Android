@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.intentlecure.app" >
+    package="com.example.gpsclienttest.app" >
 
     <application
         android:allowBackup="true"
@@ -8,17 +8,13 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.intentlecure.app.MainActivity"
+            android:name="com.example.gpsclienttest.app.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.intentlecure.app.LoginScreen"
-            android:label="@string/title_activity_login_screen" >
         </activity>
     </application>
 
