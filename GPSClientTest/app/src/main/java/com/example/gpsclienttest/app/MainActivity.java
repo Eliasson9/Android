@@ -1,5 +1,6 @@
 package com.example.gpsclienttest.app;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +23,13 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
+    //Connect to server when clicking the connectButton
     public void onClick_connect() {
         ClientTask client = new ClientTask();
         client.execute();
     }
 
+    //Takes String and display id in TextView editText
     public void displayResponse(String msg) {
         TextView textView = (TextView) findViewById(R.id.editText);
         textView.setText(msg);
@@ -62,6 +64,7 @@ public class MainActivity extends ActionBarActivity {
         private BufferedReader bufferedReader;
         private String inputLine;
 
+        //Handle all operations that is made in the background thread
         @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -74,11 +77,12 @@ public class MainActivity extends ActionBarActivity {
 
             return null;
         }
-
+        //Display information and more to the main (UI) thread
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
 
+            //Read buffered and display String in textView
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 while((inputLine = bufferedReader.readLine()) != null) {
