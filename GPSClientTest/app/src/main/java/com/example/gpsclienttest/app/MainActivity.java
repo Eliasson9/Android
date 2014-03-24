@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -66,12 +67,23 @@ public class MainActivity extends Activity {
         private Socket socket;
         private BufferedReader bufferedReader;
         private String inputLine;
+        private PrintWriter printWriter;
 
         //Handle all operations that is made in the background thread
         @Override
         protected Void doInBackground(Void... params) {
+            publishProgress("Trying to connect...");
             try {
-                socket = new Socket("localhost", 8080);
+                socket = new Socket("94.234.170.1", 63400);
+                publishProgress("Connected");
+                try {
+                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    while((inputLine = bufferedReader.readLine()) != null) {
+                        publishProgress(inputLine);
+                    }
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
             }
             catch (UnknownHostException e) {
                 System.out.println(e);
@@ -87,16 +99,9 @@ public class MainActivity extends Activity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-
+            displayResponse(values[0]);
             //Read buffered and display String in textView
-            try {
-                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                while((inputLine = bufferedReader.readLine()) != null) {
-                    displayResponse(inputLine);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 
