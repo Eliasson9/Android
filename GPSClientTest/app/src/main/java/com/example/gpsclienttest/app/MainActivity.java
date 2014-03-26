@@ -74,8 +74,20 @@ public class MainActivity extends Activity {
         protected Void doInBackground(Void... params) {
             publishProgress("Trying to connect...");
             try {
-                socket = new Socket("94.234.170.1", 63400);
+                //Connect to Server
+                socket = new Socket("192.168.1.104", 63400);
                 publishProgress("Connected");
+
+                //Send to Server
+                try {
+                    printWriter = new PrintWriter(socket.getOutputStream(),true);
+                    printWriter.println("Hello Server");
+                    printWriter.println("EYYYYYAAAAAAAA!!!!");
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+
+                //Read from Server
                 try {
                     bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     while((inputLine = bufferedReader.readLine()) != null) {
