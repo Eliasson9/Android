@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -19,6 +22,7 @@ import java.net.UnknownHostException;
 
 
 public class MainActivity extends Activity {
+    public Socket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +31,29 @@ public class MainActivity extends Activity {
 
     }
 
+    public Socket getSocket() {
+        return this.socket;
+    }
+
+    public void setSocket(Socket newSocket) {
+        this.socket = newSocket;
+    }
+
     //Connect to server when clicking the connectButton
     public void onClick_connect(View v) {
-        ClientTask client = new ClientTask();
-        client.execute();
+        ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead.execute();
+    }
+
+    //Send input to server and display answer
+    public void onClick_send(View v) {
+        EditText et = (EditText) findViewById(R.id.input);
+        String str = et.getText().toString();
+
+        ClientTaskSend clientSend = new ClientTaskSend();
+        clientSend.execute(str);
+        ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead.execute();
     }
 
     //Takes String and display id in TextView editText
@@ -39,72 +62,72 @@ public class MainActivity extends Activity {
         textView.setText(msg);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /*
     * Handles connection to the server
      */
 
-    public class ClientTask extends AsyncTask<Void, String, Void> {
-        private Socket socket;
+
+    /*
+    * Read answer from server
+     */
+    public class ClientTaskRead extends AsyncTask<Void, String, Void> {
         private BufferedReader bufferedReader;
+        private String inputLine;
+
+        //Handle all operations that is made in the background thread
+        @Override
+        protected Void doInBackground(Void... params) {
+            Socket socket = getSocket();
+            //Read from Server
+
+            if((socket == null) || (!socket.isConnected())) {
+                try {
+                    socket = new Socket("85.24.145.102", 8888);
+                    System.out.println("yolo");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                System.out.println("yolo2");
+                publishProgress(bufferedReader.readLine());
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+            setSocket(socket);
+            System.out.println("end");
+            return null;
+        }
+        //Display information and more to the main (UI) thread
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            displayResponse(values[0]);
+            //Read buffered and display String in textView
+
+        }
+    }
+
+
+    public class ClientTaskSend extends AsyncTask<String, String, String> {
         private String inputLine;
         private PrintWriter printWriter;
 
         //Handle all operations that is made in the background thread
         @Override
-        protected Void doInBackground(Void... params) {
-            publishProgress("Trying to connect...");
+        protected String doInBackground(String... params) {
+            publishProgress(params[0]);
+            Socket socket = getSocket();
+            //Send to Server
             try {
-                //Connect to Server
-                socket = new Socket("192.168.1.104", 63400);
-                publishProgress("Connected");
-
-                //Send to Server
-                try {
-                    printWriter = new PrintWriter(socket.getOutputStream(),true);
-                    printWriter.println("Hello Server");
-                    printWriter.println("EYYYYYAAAAAAAA!!!!");
-                } catch (IOException e) {
-                    System.out.println(e);
-                }
-
-                //Read from Server
-                try {
-                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    while((inputLine = bufferedReader.readLine()) != null) {
-                        publishProgress(inputLine);
-                    }
-                } catch (IOException e) {
-                    System.out.println(e);
-                }
-            }
-            catch (UnknownHostException e) {
-                System.out.println(e);
-            }
-            catch (Exception e) {
+                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                out.println(params[0]);
+            } catch (IOException e) {
                 System.out.println(e);
             }
 
-
+            setSocket(socket);
             return null;
         }
         //Display information and more to the main (UI) thread
