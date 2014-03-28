@@ -1,6 +1,7 @@
 package com.example.gpsclienttest.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -41,8 +42,10 @@ public class MainActivity extends Activity {
 
     //Connect to server when clicking the connectButton
     public void onClick_connect(View v) {
-        ClientTaskRead clientRead = new ClientTaskRead();
-        clientRead.execute();
+        //ClientTaskRead clientRead = new ClientTaskRead();
+        //clientRead.execute();
+        Intent startServiceIntent = new Intent(this, sendToServerService.class);
+        startService(startServiceIntent);
     }
 
     //Send input to server and display answer
