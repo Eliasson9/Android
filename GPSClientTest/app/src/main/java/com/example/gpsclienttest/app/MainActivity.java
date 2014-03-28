@@ -1,6 +1,9 @@
 package com.example.gpsclienttest.app;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -44,8 +47,11 @@ public class MainActivity extends Activity {
     public void onClick_connect(View v) {
         //ClientTaskRead clientRead = new ClientTaskRead();
         //clientRead.execute();
-        Intent startServiceIntent = new Intent(this, sendToServerService.class);
-        startService(startServiceIntent);
+        Intent iHeartBeatService = new Intent(this, sendToServerService.class);
+        PendingIntent piHeartBeatService = PendingIntent.getService(this, 0, iHeartBeatService, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(piHeartBeatService);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, piHeartBeatService);
     }
 
     //Send input to server and display answer

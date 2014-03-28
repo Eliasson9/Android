@@ -12,10 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by patrik on 3/28/14.
@@ -32,27 +30,14 @@ public class sendToServerService extends Service {
         return null;
     }
 
-    //Create timer
+    //Create thread for connection and run it
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
-        System.out.println("onStartCommand");
         super.onStartCommand(intent, flags, startId);
+        Runnable connect = new connectSocket();
+        new Thread(connect).start();
+        this.stopSelf();
         return START_NOT_STICKY;
-    }
-
-    /*
-    * Timertask that create an thread which connect to server
-     */
-    private class mainTask extends TimerTask
-    {
-        public void run()
-        {
-            System.out.println("mainTask");
-            Runnable connect = new connectSocket();
-            new Thread(connect).start();
-
-        }
     }
 
     /*
