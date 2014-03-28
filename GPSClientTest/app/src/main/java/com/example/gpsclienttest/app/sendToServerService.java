@@ -19,6 +19,7 @@ import java.util.TimerTask;
 
 /**
  * Created by patrik on 3/28/14.
+ * A Class that connect to the server, login and send GPS coordinates
  */
 public class sendToServerService extends Service {
     Socket socket;
@@ -31,14 +32,18 @@ public class sendToServerService extends Service {
         return null;
     }
 
+    //Create timer
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
         System.out.println("onStartCommand");
         super.onStartCommand(intent, flags, startId);
-        return START_REDELIVER_INTENT;
+        return START_NOT_STICKY;
     }
 
+    /*
+    * Timertask that create an thread which connect to server
+     */
     private class mainTask extends TimerTask
     {
         public void run()
@@ -50,6 +55,9 @@ public class sendToServerService extends Service {
         }
     }
 
+    /*
+    * A thread that connect to server, login and send GPS coordinates
+     */
     class connectSocket implements Runnable {
         private BufferedReader bufferedReader;
         private String inputLine;
