@@ -38,7 +38,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpMapIfNeeded();        
+        setUpMapIfNeeded();     
+        
+        Intent iHeartBeatService = new Intent(this, SendToServerService.class);
+        PendingIntent piHeartBeatService = PendingIntent.getService(this, 0, iHeartBeatService, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(piHeartBeatService);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, piHeartBeatService);
     }
 	
 	@Override
@@ -57,14 +63,14 @@ public class MainActivity extends Activity {
     }
 
     //Connect to server when clicking the connectButton
-    public void onClick_connect(View v) {
-        //ClientTaskRead clientRead = new ClientTaskRead();
-        //clientRead.execute();
-        Intent iHeartBeatService = new Intent(this, SendToServerService.class);
-        PendingIntent piHeartBeatService = PendingIntent.getService(this, 0, iHeartBeatService, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(piHeartBeatService);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, piHeartBeatService);
+    public void onClick_refresh(View v) {
+        ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead.execute();
+        //Intent iHeartBeatService = new Intent(this, SendToServerService.class);
+        //PendingIntent piHeartBeatService = PendingIntent.getService(this, 0, iHeartBeatService, PendingIntent.FLAG_UPDATE_CURRENT);
+        //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //alarmManager.cancel(piHeartBeatService);
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, piHeartBeatService);
     }
 /*
     //Send input to server and display answer
