@@ -44,7 +44,7 @@ public class SendToServerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         // Get the location manager
-        System.out.println("Update Service");
+        //System.out.println("Update Service");
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
 
@@ -77,9 +77,9 @@ public class SendToServerService extends Service {
             String longitude = "Longitude: " + loc.getLongitude();
             pLongitude = "" + loc.getLongitude();
             pLatitude = "" + loc.getLatitude();
-            System.out.println(longitude);
+            //System.out.println(longitude);
             String latitude = "Latitude: " + loc.getLatitude();
-            System.out.println(latitude);
+            //System.out.println(latitude);
 
         /*------- To get city name from coordinates -------- */
             String cityName = null;
@@ -89,7 +89,7 @@ public class SendToServerService extends Service {
                 addresses = gcd.getFromLocation(loc.getLatitude(),
                         loc.getLongitude(), 1);
                 if (addresses.size() > 0)
-                    System.out.println(addresses.get(0).getLocality());
+                    //System.out.println(addresses.get(0).getLocality());
                 cityName = addresses.get(0).getLocality();
             }
             catch (IOException e) {
@@ -97,7 +97,7 @@ public class SendToServerService extends Service {
             }
             String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
                     + cityName;
-            System.out.println(s);
+            //System.out.println(s);
 
             Runnable connect = new connectSocket();
             new Thread(connect).start();
@@ -122,17 +122,17 @@ public class SendToServerService extends Service {
         @Override
         public void run() {
 
-            System.out.println("socketConn");
+            //System.out.println("socketConn");
 
             try {
                 socket = new Socket(SERVERIP, SERVERPORT);
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                System.out.println(bufferedReader.readLine());
+                //System.out.println(bufferedReader.readLine());
                 PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                 out.println("Login#0");
-                System.out.println(bufferedReader.readLine());
+                //System.out.println(bufferedReader.readLine());
                 out.println("MyPosition#" + pLongitude + ":" + pLatitude);
-                System.out.println(bufferedReader.readLine());
+                //System.out.println(bufferedReader.readLine());
             }
                 catch (Exception e) {
 
