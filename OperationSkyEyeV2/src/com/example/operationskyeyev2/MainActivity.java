@@ -14,10 +14,10 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.operationskyeye.R;
-import com.example.operationskyeye.SendToServerService;
-import com.example.operationskyeye.R.id;
-import com.example.operationskyeye.R.layout;
+import com.example.operationskyeyev2.R;
+import com.example.operationskyeyev2.SendToServerService;
+import com.example.operationskyeyev2.R.id;
+import com.example.operationskyeyev2.R.layout;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
