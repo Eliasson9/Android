@@ -2,7 +2,9 @@ package com.example.operationskyeye;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -26,13 +28,15 @@ import android.util.Log;
 
 public class SendToServerService extends Service {
     Socket socket;
-    String pLatitude = "?";
-    String pLongitude = "!";
+    private String pLatitude = "?";
+    private String userID = "";
+    private String pLongitude = "!";
     private LocationManager locationManager;
     private String provider;
     public static final String SERVERIP = "85.24.145.102"; //your computer IP address should be written here
     public static final int SERVERPORT = 8888;
     private static Timer timer = new Timer();
+   
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -45,6 +49,16 @@ public class SendToServerService extends Service {
         super.onStartCommand(intent, flags, startId);
         // Get the location manager
         //System.out.println("Update Service");
+        /*
+        try {
+        	FileInputStream in = openFileInput("userData.txt");
+        	this.userID = String.valueOf(Integer.parseInt(in.toString()));
+        	in.close();
+        } catch (IOException e) {
+        	
+        }
+        */
+        
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
 
@@ -124,15 +138,37 @@ public class SendToServerService extends Service {
 
             //System.out.println("socketConn");
 
-            try {
+        	//ReadFromFIle
+        	InputStream instream;
+			try {
+				instream = openFileInput("userData.txt");
+	               if (instream != null) {
+	            	   // prepare the file for reading
+	                   InputStreamReader inputreader = new InputStreamReader(instream);
+	                   BufferedReader buffreader = new BufferedReader(inputreader);
+	                   userID = buffreader.readLine();
+	               }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}    
+        	
+        	
+        	
+        	
+        	try {
                 socket = new Socket(SERVERIP, SERVERPORT);
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 //System.out.println(bufferedReader.readLine());
                 PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                out.println("Login#0");
-                //System.out.println(bufferedReader.readLine());
+                out.println("Login#"+userID);
+                bufferedReader.readLine();
+                //String answer;
                 out.println("MyPosition#" + pLongitude + ":" + pLatitude);
-                //System.out.println(bufferedReader.readLine());
+                //while (!(answer = bufferedReader.readLine()).equals("\u0004")) {
+                //	System.out.println(answer);
+                //}
+                bufferedReader.readLine();
             }
                 catch (Exception e) {
 

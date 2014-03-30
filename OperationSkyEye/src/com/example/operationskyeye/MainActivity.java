@@ -2,7 +2,11 @@ package com.example.operationskyeye;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -10,6 +14,10 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.operationskyeye.R;
+import com.example.operationskyeye.SendToServerService;
+import com.example.operationskyeye.R.id;
+import com.example.operationskyeye.R.layout;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,28 +37,68 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.os.Build;
 
 
 public class MainActivity extends Activity {
     public Socket socket;
     private GoogleMap mMap;
+    private String userID = "";
 
+    
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-   
-        
-        connectService();
-        setUpMapIfNeeded();        
+        setContentView(R.layout.activity_main);       
+        //Do something
+        	
+        	//ReadFromFIle
+        File file = getBaseContext().getFileStreamPath("userData.txt");
+        if(file.exists()) {
+	        InputStream instream;
+			try {
+				instream = openFileInput("userData.txt");
+				if (instream != null) {
+		        // prepare the file for reading
+					InputStreamReader inputreader = new InputStreamReader(instream);
+		            BufferedReader buffreader = new BufferedReader(inputreader);
+		            this.userID = buffreader.readLine();
+		            connectService();
+		            setUpMapIfNeeded();
+
+		        }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        } else {
+            Intent intent = new Intent(this, RegisterActivity.class);
+        	startActivity(intent);
+        }
     }
+	
+
 	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		setUpMapIfNeeded();  
+		InputStream instream;
+		try {
+			instream = openFileInput("userData.txt");
+               if (instream != null) {
+            	   // prepare the file for reading
+                   InputStreamReader inputreader = new InputStreamReader(instream);
+                   BufferedReader buffreader = new BufferedReader(inputreader);
+                   this.userID = buffreader.readLine();
+               }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
+        connectService();
+        setUpMapIfNeeded();
 	}
 	
 	//Return Socket
@@ -67,7 +115,7 @@ public class MainActivity extends Activity {
     //Connect to server when clicking the connectButton
     public void onClick_refresh(View v) {
     	ClientTaskSend clientSend = new ClientTaskSend();
-        clientSend.execute("Login#0");
+        clientSend.execute("Login#"+userID);
         ClientTaskRead clientRead = new ClientTaskRead();
         clientRead.execute();
         clientSend = new ClientTaskSend();
