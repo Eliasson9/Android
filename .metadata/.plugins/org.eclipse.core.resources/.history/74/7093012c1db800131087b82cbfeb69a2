@@ -48,13 +48,11 @@ public class MainActivity extends Activity {
 		super.onResume();
 		setUpMapIfNeeded();  
 	}
-	
-	//Return Socket
+
     public Socket getSocket() {
         return this.socket;
     }
 
-    //Set new Socket
     public void setSocket(Socket newSocket) {
         this.socket = newSocket;
     }
@@ -125,9 +123,6 @@ public class MainActivity extends Activity {
     }
 
 
-    /*
-    * Send information to Server
-     */
     public class ClientTaskSend extends AsyncTask<String, String, String> {
         private String inputLine;
         private PrintWriter printWriter;
@@ -157,7 +152,6 @@ public class MainActivity extends Activity {
         }
     }
     
-    //Connect to Server
     public void connectServer() {
     	Socket socket = getSocket();
     	if((socket == null) || (!socket.isConnected())) {
@@ -171,7 +165,6 @@ public class MainActivity extends Activity {
         setSocket(socket);
     }
     
-    //Set up the map
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
