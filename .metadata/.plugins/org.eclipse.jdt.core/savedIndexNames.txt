@@ -1,6 +1,5 @@
-INDEX VERSION 1.126+C:\Users\Patrik\Documents\GitHub\Android\.metadata\.plugins\org.eclipse.jdt.core
-9398244.index
-398528717.index
-1523749168.index
-715257351.index
-848856923.index
+INDEX VERSION 1.126+/media/Slave/Development/MyGit/Android/.metadata/.plugins/org.eclipse.jdt.core
+2185600094.index
+1415693123.index
+3486657476.index
+4049332213.index
