@@ -4,6 +4,6 @@ libs/*
 gen/*
 .classpath
 .project
-.metdata/*
+.metadata/*
 project.properties
 
