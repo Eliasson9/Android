@@ -231,6 +231,7 @@ public class MainActivity extends Activity {
             }
     	}    
         setSocket(socket);
+        
     }
     
     //Set up the map
