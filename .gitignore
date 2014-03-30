@@ -4,4 +4,4 @@ libs/
 gen/
 .classpath
 .project
-
+.metadata/

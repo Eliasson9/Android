@@ -19,5 +19,10 @@
 			<type>2</type>
 			<location>C:/media/Slave/Development/adt-bundle-linux-x86_64-20140321/sdk/sources/android-14</location>
 		</link>
+		<link>
+			<name>.link5</name>
+			<type>2</type>
+			<location>C:/media/Slave/Development/adt-bundle-linux-x86_64-20140321/sdk/sources/android-18</location>
+		</link>
 	</linkedResources>
 </projectDescription>
