@@ -10,14 +10,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>.link0</name>
+			<name>.link3</name>
 			<type>2</type>
-			<location>/media/Slave/Development/adt-bundle-linux-x86_64-20140321/sdk/sources/android-18</location>
+			<location>C:/Users/Patrik/Documents/adt-bundle-windows-x86_64-20140321/sdk/sources/android-19</location>
 		</link>
 		<link>
 			<name>.link4</name>
 			<type>2</type>
-			<location>/media/Slave/Development/adt-bundle-linux-x86_64-20140321/sdk/sources/android-14</location>
+			<location>C:/media/Slave/Development/adt-bundle-linux-x86_64-20140321/sdk/sources/android-14</location>
 		</link>
 	</linkedResources>
 </projectDescription>
