@@ -1,1 +1,7 @@
-AndroidManifest.xml
+.settings/
+bin/
+libs/
+gen/
+.classpath
+.project
+
