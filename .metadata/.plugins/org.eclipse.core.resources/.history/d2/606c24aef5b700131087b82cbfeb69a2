@@ -1,0 +1,5 @@
+package com.example.operationskyeye;
+
+public class SendToServerService {
+
+}

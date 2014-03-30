@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
         alarmManager.cancel(piHeartBeatService);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, piHeartBeatService);
     }
-
+/*
     //Send input to server and display answer
     public void onClick_send(View v) {
         EditText et = (EditText) findViewById(R.id.input);
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         ClientTaskRead clientRead = new ClientTaskRead();
         clientRead.execute();
     }
-
+*/
     //Takes String and display id in TextView editText
     public void displayResponse(String msg) {
         TextView textView = (TextView) findViewById(R.id.editText);

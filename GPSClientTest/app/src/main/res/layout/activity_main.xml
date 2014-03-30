@@ -24,23 +24,19 @@
         android:layout_below="@+id/connectButton"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send"
-        android:onClick="onClick_send"
-        android:id="@+id/sendButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/input"
-        android:layout_above="@+id/sendButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.MapFragment"/>
+
+        </RelativeLayout>
+
+
 
 </RelativeLayout>
