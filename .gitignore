@@ -1,8 +1,0 @@
-.settings/*
-bin/*
-libs/*
-gen/*
-.classpath
-.project
-.metadata/*
-project.properties
