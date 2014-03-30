@@ -1,4 +1,9 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
-.DS_Store
+.settings/*
+bin/*
+libs/*
+gen/*
+.classpath
+.project
+.metadata/*
+project.properties
+
