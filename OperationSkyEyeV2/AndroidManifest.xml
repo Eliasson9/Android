@@ -61,7 +61,7 @@
         </service>
 
         <activity
-            android:name="com.example.operationskyeye.RegisterActivity"
+            android:name="com.example.operationskyeyev2.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
     </application>
