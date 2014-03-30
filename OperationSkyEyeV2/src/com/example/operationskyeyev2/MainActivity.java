@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     private GoogleMap mMap;
     private String userID = "";
 
+    
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
