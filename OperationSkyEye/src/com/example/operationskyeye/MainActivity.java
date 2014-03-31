@@ -14,6 +14,9 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
 
+import android.graphics.PorterDuffXfermode;
+import android.graphics.PorterDuff.Mode;
+
 import com.example.operationskyeye.R;
 import com.example.operationskyeye.SendToServerService;
 import com.example.operationskyeye.R.id;
@@ -30,6 +33,13 @@ import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +47,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.os.Build;
 
@@ -44,6 +56,9 @@ import android.os.Build;
 public class MainActivity extends Activity {
     public Socket socket;
     private GoogleMap mMap;
+    private int peopleOnline = 0;
+    private int friendsOnline = 0;
+    private boolean statusOnline = false;
     private String userID = "";
 
     
@@ -67,6 +82,19 @@ public class MainActivity extends Activity {
 		            connectService();
 		            setUpMapIfNeeded();
 
+		            //First Button Click
+		        	this.statusOnline = false;
+		        	ClientTaskRead clientRead = new ClientTaskRead();
+		            clientRead.execute();
+		        	ClientTaskSend clientSend = new ClientTaskSend();
+		            clientSend.execute("Login#"+userID);
+		            clientRead = new ClientTaskRead();
+		            clientRead.execute();
+		            clientSend = new ClientTaskSend();
+		            clientSend.execute("RequestPositions#true");
+		            clientRead = new ClientTaskRead();
+		            clientRead.execute();
+		            
 		        }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -76,6 +104,15 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(this, RegisterActivity.class);
         	startActivity(intent);
         }
+        
+        ImageHelper helper = new ImageHelper();
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.kent);
+        bitmap = helper.getRoundedCornerBitmap(bitmap, 50);
+        System.out.println(bitmap.getHeight());
+        System.out.println(bitmap.getWidth());
+        ((ImageView)findViewById(R.id.picBox)).setImageBitmap(bitmap);
+        
     }
 	
 
@@ -114,9 +151,12 @@ public class MainActivity extends Activity {
 
     //Connect to server when clicking the connectButton
     public void onClick_refresh(View v) {
+    	this.statusOnline = false;
+    	ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead.execute();
     	ClientTaskSend clientSend = new ClientTaskSend();
         clientSend.execute("Login#"+userID);
-        ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead = new ClientTaskRead();
         clientRead.execute();
         clientSend = new ClientTaskSend();
         clientSend.execute("RequestPositions#true");
@@ -162,7 +202,6 @@ public class MainActivity extends Activity {
     * Handles connection to the server
      */
 
-
     /*
     * Read answer from server
      */
@@ -195,6 +234,7 @@ public class MainActivity extends Activity {
             
             for (int j = 0; j < mySize; j++) {
             	System.out.println(values[j]);
+            	statusOnline = true;
             	String theInput = values[j];
 	            List<String> valueList = Arrays.asList(theInput.split("#"));
 		        if (valueList != null && valueList.size() > 1) {
@@ -205,6 +245,8 @@ public class MainActivity extends Activity {
 				    	mMap.clear();
 				    	//Filter out positions
 				    	List<String> positionList = Arrays.asList(content.split(";"));
+				    	peopleOnline = positionList.size();
+				    	friendsOnline = positionList.size()-1;
 				    	for (int i = 0; i < (positionList.size()); i++) {
 				    		if (positionList.get(i).length() > 0) {
 				    			List<String> LongLatList = Arrays.asList(positionList.get(i).split(":"));
@@ -228,9 +270,14 @@ public class MainActivity extends Activity {
 		        
 	        }
             
-            //displayResponse(values[0]);
-            //Read buffered and display String in textView
-
+            if (statusOnline == true) {
+            	((TextView)findViewById(R.id.firstMiscText)).setText("Online");
+            } else {
+            	//((TextView)findViewById(R.id.firstMiscText)).setText("Offline");
+            }
+            ((TextView)findViewById(R.id.secondMiscText)).setText(String.valueOf(peopleOnline));
+            ((TextView)findViewById(R.id.thirdMiscText)).setText(String.valueOf(friendsOnline));
+            //Update GUI
         }
     }
 
@@ -298,5 +345,30 @@ public class MainActivity extends Activity {
             }
         }
     }
+    
+    public class ImageHelper {
+        public Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+            Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                    .getHeight(), Config.ARGB_8888);
+            Canvas canvas = new Canvas(output);
+
+            final int color = 0xff424242;
+            final Paint paint = new Paint();
+            final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            final RectF rectF = new RectF(rect);
+            final float roundPx = pixels;
+
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            paint.setColor(color);
+            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+            paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+            canvas.drawBitmap(bitmap, rect, rect, paint);
+
+            return output;
+        }
+    }
+    
 
 }

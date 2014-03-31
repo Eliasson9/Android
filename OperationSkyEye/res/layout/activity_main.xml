@@ -21,10 +21,31 @@
             android:background="@layout/gradient_box_light"
             android:layout_width="112dp"
             android:layout_marginRight="8dp"
-            android:padding="4dp"
+            android:paddingBottom="4dp"
             android:layout_height="fill_parent">
             
+            <RelativeLayout
+				android:id="@+id/separatorLayout"
+				android:layout_width="fill_parent"
+				android:layout_alignParentTop="true"
+				android:background="@layout/gradient_box_dark"
+				android:layout_height="6dp">
+			</RelativeLayout>
+			
+            <ImageView 
+                android:id="@+id/picBox"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:background="@layout/pic_box" 
+                android:layout_above="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            
             <TextView
+                android:id="@+id/userName"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:layout_centerHorizontal="true"
@@ -60,7 +81,7 @@
         
         <RelativeLayout
             android:id="@+id/miscLayout"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/statusLayout"
@@ -92,26 +113,30 @@
 							        android:layout_height="6dp">
 							        
 							    </RelativeLayout>
-	                            <TextView
-	                                android:id="@+id/firstMiscText"
-	                                android:text="0"
-	                                android:textSize="20sp"
-	                                android:layout_alignParentTop="true"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_marginTop="18dp"
-	                                android:layout_width="wrap_content"
+							    <RelativeLayout 
 	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
-	                            <TextView
-	                                android:text="Status"
-	                                android:textSize="12sp"
 	                                android:layout_width="wrap_content"
-	                                android:layout_below="@+id/firstMiscText"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
+	                                android:layout_centerInParent="true"
+	                                >
+		                            <TextView
+		                                android:id="@+id/firstMiscText"
+		                                android:text="Offline"
+		                                android:textSize="12sp"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_width="wrap_content"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+		                            <TextView
+		                                android:text="Status"
+		                                android:textSize="12sp"
+		                                android:layout_width="wrap_content"
+		                                android:layout_below="@+id/firstMiscText"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+	                            </RelativeLayout>
                             </RelativeLayout>
                             
                             
@@ -129,26 +154,31 @@
 							        android:layout_height="6dp">
 							        
 							    </RelativeLayout>
-	                            <TextView
-	                                android:id="@+id/secondMiscText"
-	                                android:text="0"
-	                                android:textSize="20sp"
-	                                android:layout_marginTop="18dp"
-	                                android:layout_alignParentTop="true"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_width="wrap_content"
+	                            <RelativeLayout 
 	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
-	                            <TextView
-	                                android:text="Online"
-	                                android:textSize="12sp"
 	                                android:layout_width="wrap_content"
-	                                android:layout_below="@+id/secondMiscText"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
+	                                android:layout_centerInParent="true"
+	                                >
+		                            <TextView
+		                                android:id="@+id/secondMiscText"
+		                                android:text="0"
+		                                android:textSize="20sp"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_width="wrap_content"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+		                            <TextView
+		                                android:text="Online"
+		                                android:textSize="12sp"
+		                                android:layout_width="wrap_content"
+		                                android:layout_below="@+id/secondMiscText"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+	                            </RelativeLayout>
+
                             </RelativeLayout>
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -163,26 +193,30 @@
 							        android:layout_height="6dp">
 							        
 							    </RelativeLayout>
-	                            <TextView
-	                                android:id="@+id/thirdMiscText"
-	                                android:text="0"
-	                                android:textSize="20sp"
-	                                android:layout_marginTop="18dp"
-	                                android:layout_alignParentTop="true"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_width="wrap_content"
+							    <RelativeLayout 
 	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
-	                            <TextView
-	                                android:text="Friends"
-	                                android:textSize="12sp"
 	                                android:layout_width="wrap_content"
-	                                android:layout_below="@+id/thirdMiscText"
-	                                android:layout_centerHorizontal="true"
-	                                android:layout_height="wrap_content"
-	                                android:textColor="#000000"
-	                                android:gravity="center"/>
+	                                android:layout_centerInParent="true"
+	                                >
+		                            <TextView
+		                                android:id="@+id/thirdMiscText"
+		                                android:text="0"
+		                                android:textSize="20sp"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_width="wrap_content"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+		                            <TextView
+		                                android:text="Friends"
+		                                android:textSize="12sp"
+		                                android:layout_width="wrap_content"
+		                                android:layout_below="@+id/thirdMiscText"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+		                            </RelativeLayout>
                             </RelativeLayout>
                         </TableRow>
             </TableLayout>
