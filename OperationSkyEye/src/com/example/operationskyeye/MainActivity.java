@@ -274,9 +274,9 @@ public class MainActivity extends Activity {
 	        }
             
             if (statusOnline == true) {
-            	((TextView)findViewById(R.id.firstMiscText)).setText("Online");
+            	((TextView)findViewById(R.id.firstMiscText)).setText("On");
             } else {
-            	//((TextView)findViewById(R.id.firstMiscText)).setText("Offline");
+            	((TextView)findViewById(R.id.firstMiscText)).setText("Off");
             }
             ((TextView)findViewById(R.id.secondMiscText)).setText(String.valueOf(peopleOnline));
             ((TextView)findViewById(R.id.thirdMiscText)).setText(String.valueOf(friendsOnline));

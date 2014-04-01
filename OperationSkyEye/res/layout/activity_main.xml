@@ -88,7 +88,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/statusLayout"
             android:layout_toRightOf="@+id/userLayout"
-            android:background="@layout/gradient_box_light"
+            android:background="#00000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             
@@ -105,7 +105,7 @@
                             <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_height="fill_parent"
-                                android:background="@layout/gradient_box_light"
+                                android:background="#00000000"
                                 >
                                 <RelativeLayout
 							        android:id="@+id/separatorLayout"
@@ -116,14 +116,18 @@
 							        
 							    </RelativeLayout>
 							    <RelativeLayout 
-	                                android:layout_height="wrap_content"
-	                                android:layout_width="wrap_content"
-	                                android:layout_centerInParent="true"
+	                                android:layout_height="fill_parent"
+	                                android:layout_width="fill_parent"
+	                                android:layout_above="@+id/downButtonLayout"
+	                                android:layout_below="@+id/separatorLayout"
+	                                android:background="@layout/gradient_box_light_nocorner"
+	                                android:layout_centerHorizontal="true"
+	                                android:gravity="center"
 	                                >
 		                            <TextView
 		                                android:id="@+id/firstMiscText"
-		                                android:text="Offline"
-		                                android:textSize="12sp"
+		                                android:text="Off"
+		                                android:textSize="20sp"
 		                                android:layout_centerHorizontal="true"
 		                                android:layout_width="wrap_content"
 		                                android:layout_height="wrap_content"
@@ -138,7 +142,24 @@
 		                                android:layout_height="wrap_content"
 		                                android:textColor="#000000"
 		                                android:gravity="center"/>
+
 	                            </RelativeLayout>
+	                            	<RelativeLayout
+	                            	    android:id="@+id/downButtonLayout"
+		                                android:layout_alignParentBottom="true"
+		                                android:layout_width="fill_parent"
+		                                android:layout_height="16dp"
+		                                android:padding="4dp"
+		                                android:background="@layout/button_box" 
+		                                >
+		      							<ImageView
+		      							    android:layout_height="fill_parent"
+		      							    android:layout_width="wrap_content"
+		      							    android:src="@drawable/arrow_down"
+		      							    android:scaleType="fitCenter" 
+		      							    android:layout_centerInParent="true"
+		      							    />
+		                            </RelativeLayout>
                             </RelativeLayout>
                             
                             
