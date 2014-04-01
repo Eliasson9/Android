@@ -47,6 +47,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -109,10 +110,12 @@ public class MainActivity extends Activity {
         Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),
                 R.drawable.kent);
         bitmap = helper.getRoundedCornerBitmap(bitmap, 50);
-        System.out.println(bitmap.getHeight());
-        System.out.println(bitmap.getWidth());
+        
         ((ImageView)findViewById(R.id.picBox)).setImageBitmap(bitmap);
         
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ((ImageView)findViewById(R.id.picBox)).getLayoutParams();
+        params.width = 160;
+        //((ImageView)findViewById(R.id.picBox)).setLayoutParams(params);
     }
 	
 
