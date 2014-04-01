@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:hint="Status" >
+                android:hint="What are you up to?" >
 
                 <requestFocus />
             </EditText>
@@ -103,6 +103,7 @@
                             android:minHeight="300dp"
                             android:layout_width="fill_parent">
                             <RelativeLayout
+                                android:layout_marginRight="2dp"
                                 android:layout_width="0dp"
                                 android:layout_height="fill_parent"
                                 android:background="#00000000"
@@ -134,7 +135,7 @@
 		                                android:textColor="#000000"
 		                                android:gravity="center"/>
 		                            <TextView
-		                                android:text="Status"
+		                                android:text="Online"
 		                                android:textSize="12sp"
 		                                android:layout_width="wrap_content"
 		                                android:layout_below="@+id/firstMiscText"
@@ -164,51 +165,14 @@
                             
                             
 
-                            <RelativeLayout
+							<RelativeLayout
+                                android:layout_marginRight="1dp"
+                                android:layout_marginLeft="1dp"
                                 android:layout_width="0dp"
                                 android:layout_height="fill_parent"
-                                android:background="@layout/gradient_box_light"
+                                android:background="#00000000"
                                 >
-	                            <RelativeLayout
-							        android:id="@+id/separatorLayout"
-							        android:layout_width="fill_parent"
-							        android:layout_alignParentTop="true"
-							        android:background="@layout/gradient_box_dark"
-							        android:layout_height="6dp">
-							        
-							    </RelativeLayout>
-	                            <RelativeLayout 
-	                                android:layout_height="wrap_content"
-	                                android:layout_width="wrap_content"
-	                                android:layout_centerInParent="true"
-	                                >
-		                            <TextView
-		                                android:id="@+id/secondMiscText"
-		                                android:text="0"
-		                                android:textSize="20sp"
-		                                android:layout_centerHorizontal="true"
-		                                android:layout_width="wrap_content"
-		                                android:layout_height="wrap_content"
-		                                android:textColor="#000000"
-		                                android:gravity="center"/>
-		                            <TextView
-		                                android:text="Online"
-		                                android:textSize="12sp"
-		                                android:layout_width="wrap_content"
-		                                android:layout_below="@+id/secondMiscText"
-		                                android:layout_centerHorizontal="true"
-		                                android:layout_height="wrap_content"
-		                                android:textColor="#000000"
-		                                android:gravity="center"/>
-	                            </RelativeLayout>
-
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="fill_parent"
-                                android:background="@layout/gradient_box_light"
-                                >
-	                            <RelativeLayout
+                                <RelativeLayout
 							        android:id="@+id/separatorLayout"
 							        android:layout_width="fill_parent"
 							        android:layout_alignParentTop="true"
@@ -217,13 +181,17 @@
 							        
 							    </RelativeLayout>
 							    <RelativeLayout 
-	                                android:layout_height="wrap_content"
-	                                android:layout_width="wrap_content"
-	                                android:layout_centerInParent="true"
+	                                android:layout_height="fill_parent"
+	                                android:layout_width="fill_parent"
+	                                android:layout_above="@+id/downButtonLayout"
+	                                android:layout_below="@+id/separatorLayout"
+	                                android:background="@layout/gradient_box_light_nocorner"
+	                                android:layout_centerHorizontal="true"
+	                                android:gravity="center"
 	                                >
 		                            <TextView
-		                                android:id="@+id/thirdMiscText"
-		                                android:text="0"
+		                                android:id="@+id/secondMiscText"
+		                                android:text="Off"
 		                                android:textSize="20sp"
 		                                android:layout_centerHorizontal="true"
 		                                android:layout_width="wrap_content"
@@ -234,13 +202,92 @@
 		                                android:text="Friends"
 		                                android:textSize="12sp"
 		                                android:layout_width="wrap_content"
+		                                android:layout_below="@+id/secondMiscText"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+
+	                            </RelativeLayout>
+	                            	<RelativeLayout
+	                            	    android:id="@+id/downButtonLayout"
+		                                android:layout_alignParentBottom="true"
+		                                android:layout_width="fill_parent"
+		                                android:layout_height="16dp"
+		                                android:padding="4dp"
+		                                android:background="@layout/button_box" 
+		                                >
+		      							<ImageView
+		      							    android:layout_height="fill_parent"
+		      							    android:layout_width="wrap_content"
+		      							    android:src="@drawable/arrow_down"
+		      							    android:scaleType="fitCenter" 
+		      							    android:layout_centerInParent="true"
+		      							    />
+		                            </RelativeLayout>
+                            </RelativeLayout>
+                            
+                            <RelativeLayout
+                                android:layout_marginLeft="2dp"
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:background="#00000000"
+                                >
+                                <RelativeLayout
+							        android:id="@+id/separatorLayout"
+							        android:layout_width="fill_parent"
+							        android:layout_alignParentTop="true"
+							        android:background="@layout/gradient_box_dark"
+							        android:layout_height="6dp">
+							        
+							    </RelativeLayout>
+							    <RelativeLayout 
+	                                android:layout_height="fill_parent"
+	                                android:layout_width="fill_parent"
+	                                android:layout_above="@+id/downButtonLayout"
+	                                android:layout_below="@+id/separatorLayout"
+	                                android:background="@layout/gradient_box_light_nocorner"
+	                                android:layout_centerHorizontal="true"
+	                                android:gravity="center"
+	                                >
+		                            <TextView
+		                                android:id="@+id/thirdMiscText"
+		                                android:text="Off"
+		                                android:textSize="20sp"
+		                                android:layout_centerHorizontal="true"
+		                                android:layout_width="wrap_content"
+		                                android:layout_height="wrap_content"
+		                                android:textColor="#000000"
+		                                android:gravity="center"/>
+		                            <TextView
+		                                android:text="Status"
+		                                android:textSize="12sp"
+		                                android:layout_width="wrap_content"
 		                                android:layout_below="@+id/thirdMiscText"
 		                                android:layout_centerHorizontal="true"
 		                                android:layout_height="wrap_content"
 		                                android:textColor="#000000"
 		                                android:gravity="center"/>
+
+	                            </RelativeLayout>
+	                            	<RelativeLayout
+	                            	    android:id="@+id/downButtonLayout"
+		                                android:layout_alignParentBottom="true"
+		                                android:layout_width="fill_parent"
+		                                android:layout_height="16dp"
+		                                android:padding="4dp"
+		                                android:background="@layout/button_box" 
+		                                >
+		      							<ImageView
+		      							    android:layout_height="fill_parent"
+		      							    android:layout_width="wrap_content"
+		      							    android:src="@drawable/arrow_down"
+		      							    android:scaleType="fitCenter" 
+		      							    android:layout_centerInParent="true"
+		      							    />
 		                            </RelativeLayout>
                             </RelativeLayout>
+
                         </TableRow>
             </TableLayout>
             

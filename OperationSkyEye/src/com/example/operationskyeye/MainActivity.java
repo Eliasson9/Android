@@ -21,6 +21,8 @@ import com.example.operationskyeye.R;
 import com.example.operationskyeye.SendToServerService;
 import com.example.operationskyeye.R.id;
 import com.example.operationskyeye.R.layout;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -342,9 +344,17 @@ public class MainActivity extends Activity {
             //.position(new LatLng(0, 0))
             //.title("Hello world"));
             // Check if we were successful in obtaining the map.
+            //04-01 03:00:10.488: I/System.out(13765): Positions#Peter Parker:15.5970004:56.178705;Sebbe:15.5969558:56.1786384;
+
+            
+            
+            
             if (mMap != null) {
                 // The Map is verified. It is now safe to manipulate the map.
-
+            	CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(56.178705,15.5970004));
+            	CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
+            	mMap.moveCamera(center);
+            	mMap.animateCamera(zoom);
             }
         }
     }
