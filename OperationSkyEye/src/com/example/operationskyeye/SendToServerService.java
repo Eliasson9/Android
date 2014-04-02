@@ -30,6 +30,7 @@ public class SendToServerService extends Service {
     Socket socket;
     private String pLatitude = "?";
     private String userID = "";
+    private String appVersion = "2";//getResources().getText(R.string.appVersion).toString();
     private String pLongitude = "!";
     private LocationManager locationManager;
     private String provider;
@@ -161,7 +162,7 @@ public class SendToServerService extends Service {
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 //System.out.println(bufferedReader.readLine());
                 PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                out.println("Login#"+userID);
+                out.println("Login#"+appVersion+";"+userID);
                 bufferedReader.readLine();
                 //String answer;
                 out.println("MyPosition#" + pLongitude + ":" + pLatitude);

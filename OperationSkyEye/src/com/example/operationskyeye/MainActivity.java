@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
     private int friendsOnline = 0;
     private boolean statusOnline = false;
     private String userID = "";
+    private String appVersion = "2";//getResources().getText(R.string.appVersion).toString();
 
     
 	@Override
@@ -126,7 +127,7 @@ public class MainActivity extends Activity {
     	//ClientTaskRead clientRead = new ClientTaskRead();
         //clientRead.execute();
     	ClientTaskSend clientSend = new ClientTaskSend();
-        clientSend.execute("Login#"+userID);
+        clientSend.execute("Login#"+appVersion+";"+userID);
         ClientTaskRead clientRead = new ClientTaskRead();
         clientRead.execute();
         clientSend = new ClientTaskSend();
@@ -263,6 +264,10 @@ public class MainActivity extends Activity {
 				    String command = valueList.get(0);
 				    String content = valueList.get(1);
 				    
+				    if (command.equals("Version")) {
+				    	Toast.makeText(getApplicationContext(), "Please Update to v"+content+"!", Toast.LENGTH_LONG).show();
+				    }
+				    
 				    if (command.equals("Positions")) {
 				    	mMap.clear();
 				    	//Filter out positions
@@ -360,12 +365,7 @@ public class MainActivity extends Activity {
             //mMap.addMarker(new MarkerOptions()
             //.position(new LatLng(0, 0))
             //.title("Hello world"));
-            // Check if we were successful in obtaining the map.
-            //04-01 03:00:10.488: I/System.out(13765): Positions#Peter Parker:15.5970004:56.178705;Sebbe:15.5969558:56.1786384;
-
-            
-            
-            
+            // Check if we were successful in obtaining the map.  
             if (mMap != null) {
                 // The Map is verified. It is now safe to manipulate the map.
             	CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(56.178705,15.5970004));
