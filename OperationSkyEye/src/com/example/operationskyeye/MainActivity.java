@@ -86,17 +86,11 @@ public class MainActivity extends Activity {
 		            setUpMapIfNeeded();
 
 		            //First Button Click
-		        	this.statusOnline = false;
-		        	ClientTaskRead clientRead = new ClientTaskRead();
-		            clientRead.execute();
-		        	ClientTaskSend clientSend = new ClientTaskSend();
-		            clientSend.execute("Login#"+userID);
-		            clientRead = new ClientTaskRead();
-		            clientRead.execute();
-		            clientSend = new ClientTaskSend();
-		            clientSend.execute("RequestPositions#true");
-		            clientRead = new ClientTaskRead();
-		            clientRead.execute();
+		            
+		            
+		            updateGUI();
+		            
+		            
 		            
 		        }
 			} catch (Exception e) {
@@ -121,6 +115,25 @@ public class MainActivity extends Activity {
     }
 	
 
+	private void updateGUI() {
+		((TextView)findViewById(R.id.firstMiscText)).setText("-");
+        ((TextView)findViewById(R.id.secondMiscText)).setText("-");
+        ((TextView)findViewById(R.id.thirdMiscText)).setText("-");
+        mMap.clear();
+    	this.statusOnline = false;
+    	this.friendsOnline = 0;
+    	this.peopleOnline = 0;
+    	//ClientTaskRead clientRead = new ClientTaskRead();
+        //clientRead.execute();
+    	ClientTaskSend clientSend = new ClientTaskSend();
+        clientSend.execute("Login#"+userID);
+        ClientTaskRead clientRead = new ClientTaskRead();
+        clientRead.execute();
+        clientSend = new ClientTaskSend();
+        clientSend.execute("RequestPositions#true");
+        clientRead = new ClientTaskRead();
+        clientRead.execute();
+	}
 	
 	@Override
 	protected void onResume() {
@@ -156,6 +169,7 @@ public class MainActivity extends Activity {
 
     //Connect to server when clicking the connectButton
     public void onClick_refresh(View v) {
+    	/*
     	this.statusOnline = false;
     	ClientTaskRead clientRead = new ClientTaskRead();
         clientRead.execute();
@@ -167,6 +181,9 @@ public class MainActivity extends Activity {
         clientSend.execute("RequestPositions#true");
         clientRead = new ClientTaskRead();
         clientRead.execute();
+        */
+    	System.out.println("refresh Clicked!");
+    	updateGUI();
         //Intent iHeartBeatService = new Intent(this, SendToServerService.class);
         //PendingIntent piHeartBeatService = PendingIntent.getService(this, 0, iHeartBeatService, PendingIntent.FLAG_UPDATE_CURRENT);
         //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
